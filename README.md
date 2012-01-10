@@ -8,7 +8,9 @@ Usage:
 
 in docroot:
 /index.html <-- generated presentation
+
 /css/impress-demo.css
+
 /js/impress.js
 
 Pathing is hard-coded for now, but there's plans to change that in the future.
