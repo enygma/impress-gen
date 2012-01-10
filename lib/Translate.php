@@ -30,7 +30,6 @@ EOT;
                     $contents = file_get_contents($file->getPathname());
 
                     $slideName = $file->getBasename('.md');
-                    $attributeSet['class']  = 'step slide';
                     $attributeSet['id']     = $slideName;
 
                     // pull off the first line if it's an attributes line
@@ -76,6 +75,7 @@ EOT;
         // write out to the file
         $filePath = '/www/htdocs/test/impress/index.html';
         file_put_contents($filePath,$output);
+        echo "outputted to ".$filePath."\n\n";
     }
 
 

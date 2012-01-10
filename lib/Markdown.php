@@ -19,10 +19,6 @@ class Markdown
                 $contents = $this->$methodName($contents);
             }
         }
-
-        echo "--------------\n";
-        echo 'updated: '.$contents."\n\n";
-
         return $contents;
     }
 
