@@ -27,30 +27,32 @@ EOT;
             $iterator = new \DirectoryIterator($dirPath);
             foreach ($iterator as $file) {
                 if ($file->isFile()) {
-                    $contents = file_get_contents($file->getPathname());
+                    $contents       = file_get_contents($file->getPathname());
+                    $attributeSet   = array();
 
                     $slideName = $file->getBasename('.md');
-                    $attributeSet['id']     = $slideName;
 
                     // pull off the first line if it's an attributes line
-                    if (substr($contents,0,5) == '<!---') {
-                        $lines = explode("\n",$contents);
+                    if (substr($contents, 0, 5) == '<!---') {
+                        $lines = explode("\n", $contents);
                         $attributes = array_shift($lines);
-                        $contents = implode("\n",$lines);
+                        $contents = implode("\n", $lines);
 
-                        $attributes = str_replace(array('<!---','--->'),'',$attributes);
-                        $attribSet  = explode(",",$attributes);
+                        $attributes = str_replace(
+                            array('<!---','--->'),'', $attributes
+                        );
+                        $attribSet  = explode(",", $attributes);
 
-                        foreach($attribSet as $attrib){
-                            $ex = explode("=",$attrib);
+                        foreach ($attribSet as $attrib) {
+                            $ex = explode("=", $attrib);
                             $attributeSet[$ex[0]] = trim($ex[1]);
                         }
                     }
 
-                    $content = $md->parse($contents);
+                    $content    = $md->parse($contents);
                     $attribList = '';
 
-                    foreach($attributeSet as $property => $value){
+                    foreach ($attributeSet as $property => $value) {
                         $attribList .= $property.'="'.$value.'" ';
                     }
                     $attribList = trim($attribList);
@@ -59,6 +61,7 @@ EOT;
             <div $attribList>
                 $content
             </div>
+
 EOT;
                 }
             }
@@ -74,7 +77,7 @@ EOT;
 
         // write out to the file
         $filePath = '/www/htdocs/test/impress/index.html';
-        file_put_contents($filePath,$output);
+        file_put_contents($filePath, $output);
         echo "outputted to ".$filePath."\n\n";
     }
 
