@@ -12,6 +12,7 @@ in docroot:
 /js/impress.js
 
 Pathing is hard-coded for now, but there's plans to change that in the future.
+Full Markdown support HAS NOT been implemented (yet)
 
 Chris Cornutt <ccornutt@phpdeveloper.org>
 MIT license
