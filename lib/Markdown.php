@@ -1,6 +1,6 @@
 <?php
 
-namespace Lib;
+namespace ImpressGen\Lib;
 
 /**
  * As defined here: http://www.squarespace.com/display/ShowHelp?section=Markdown
@@ -19,7 +19,7 @@ class Markdown
     {
 
         // run all of our formatting methods
-        $rclass = new \ReflectionClass('Lib\Markdown');
+        $rclass = new \ReflectionClass('\ImpressGen\Lib\Markdown');
         foreach ($rclass->getMethods() as $method) {
             $methodName = $method->name;
             if(substr($methodName,0,7) == '_format'){

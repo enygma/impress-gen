@@ -1,14 +1,12 @@
 <?php
 
-namespace Lib;
+namespace ImpressGen\Lib;
 
 class Translate
 {
-    
-    
-    public function parse($dirPath)
+    public function parse($dirPath,$options=null)
     {
-        $md = new \Lib\Markdown();
+        $md = new Markdown();
 
         $output = <<<EOT
 <!doctype html>
@@ -21,14 +19,20 @@ class Translate
     <div id="impress" class="impress-not-supported">
 
 EOT;
+        // if the source is set on the command line, override
+        $dirPath = ($options->getOption('source') !== null) ? $options->getOption('source') : $dirPath;
+        echo 'Loading from: '.$dirPath."\n\n";
 
         // ensure we can read the directory
         if (is_dir($dirPath)) {
             $iterator = new \DirectoryIterator($dirPath);
+            $fileList = array();
+
             foreach ($iterator as $file) {
-                if ($file->isFile()) {
+                if ($file->isFile() && stristr($file->getBasename(),'.md') !== false) {
                     $contents       = file_get_contents($file->getPathname());
                     $attributeSet   = array();
+                    $fileList[]     = $file->getBasename();
 
                     $slideName = $file->getBasename('.md');
 
@@ -67,6 +71,10 @@ EOT;
             }
         }
 
+        if (empty($fileList)) {
+            throw new \Exception('No valid markdown files/slides found!');
+        }
+
         $output .= <<<EOT
 
     </div>
@@ -74,11 +82,12 @@ EOT;
 </body>
 </html>
 EOT;
+        $filePath = ($options->getOption('output') !== null) 
+            ? $options->getOption('output') : '/www/htdocs/test/impress/index.html';
 
         // write out to the file
-        $filePath = '/www/htdocs/test/impress/index.html';
         file_put_contents($filePath, $output);
-        echo "outputted to ".$filePath."\n\n";
+        echo "Presentation output in ".$filePath."\n\n";
     }
 
 
