@@ -21,7 +21,7 @@ class Translate
 EOT;
         // if the source is set on the command line, override
         $dirPath = ($options->getOption('source') !== null) ? $options->getOption('source') : $dirPath;
-        echo 'Loading from: '.$dirPath."\n\n";
+        echo 'Loading from        : '.$dirPath."\n";
 
         // ensure we can read the directory
         if (is_dir($dirPath)) {
@@ -87,7 +87,7 @@ EOT;
 
         // write out to the file
         file_put_contents($filePath, $output);
-        echo "Presentation output in ".$filePath."\n\n";
+        echo "Presentation output : ".$filePath."\n\n";
     }
 
 

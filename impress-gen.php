@@ -6,6 +6,8 @@ require_once 'lib/Translate.php';
 require_once 'lib/Markdown.php';
 require_once 'lib/Cli.php';
 
+echo "###- impress-gen -###\n---------------------\n";
+
 try {
     $t = new Lib\Translate();
     $c = new Lib\Cli();
@@ -22,5 +24,6 @@ try {
 } catch(\Exception $e) {
     echo "ERROR: ".$e->getMessage()."\n\n";
 }
+echo "done.\n\n";
 
 ?>
